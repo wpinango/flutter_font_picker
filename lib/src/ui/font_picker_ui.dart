@@ -8,10 +8,6 @@ import '../constants/constants.dart';
 import '../constants/fontweights_map.dart';
 import '../constants/translations.dart';
 import '../models/picker_font.dart';
-import 'font_categories.dart';
-import 'font_language.dart';
-import 'font_preview.dart';
-import 'font_search.dart';
 
 class FontPickerUI extends StatefulWidget {
   final List<String> googleFonts;
@@ -46,7 +42,6 @@ class _FontPickerUIState extends State<FontPickerUI> {
   String? _selectedFontFamily;
   FontWeight _selectedFontWeight = FontWeight.w400;
   FontStyle _selectedFontStyle = FontStyle.normal;
-  String _selectedFontLanguage = 'all';
 
   @override
   void initState() {
@@ -91,45 +86,6 @@ class _FontPickerUIState extends State<FontPickerUI> {
       height: MediaQuery.of(context).size.height * 5 / 6,
       child: Column(
         children: [
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
-            child: widget.showInDialog
-                ? ListView(
-                    shrinkWrap: true,
-                    children: [
-                      FontSearch(
-                        onSearchTextChanged: onSearchTextChanged,
-                      ),
-                      FontLanguage(
-                        onFontLanguageSelected: onFontLanguageSelected,
-                        selectedFontLanguage: _selectedFontLanguage,
-                      ),
-                      const SizedBox(height: 12.0),
-                    ],
-                  )
-                : Row(
-                    children: [
-                      Expanded(
-                        child: FontSearch(
-                          onSearchTextChanged: onSearchTextChanged,
-                        ),
-                      ),
-                      Expanded(
-                        child: FontLanguage(
-                          onFontLanguageSelected: onFontLanguageSelected,
-                          selectedFontLanguage: _selectedFontLanguage,
-                        ),
-                      ),
-                    ],
-                  ),
-          ),
-          FontCategories(onFontCategoriesUpdated: onFontCategoriesUpdated),
-          FontPreview(
-            fontFamily: _selectedFontFamily ?? 'Roboto',
-            fontWeight: _selectedFontWeight,
-            fontStyle: _selectedFontStyle,
-          ),
           Expanded(
             child: ListView.builder(
               itemCount: _shownFonts.length,
@@ -304,10 +260,7 @@ class _FontPickerUIState extends State<FontPickerUI> {
 
   void onFontLanguageSelected(String? newValue) {
     setState(() {
-      _selectedFontLanguage = newValue!;
-      _shownFonts = newValue == 'all'
-          ? _allFonts
-          : _allFonts.where((f) => f.subsets.contains(newValue)).toList();
+      
     });
   }
 
