@@ -258,12 +258,6 @@ class _FontPickerUIState extends State<FontPickerUI> {
     }
   }
 
-  void onFontLanguageSelected(String? newValue) {
-    setState(() {
-      
-    });
-  }
-
   void onFontCategoriesUpdated(List<String> selectedFontCategories) {
     setState(() {
       _shownFonts = _allFonts
